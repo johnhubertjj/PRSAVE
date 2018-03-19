@@ -7,17 +7,6 @@
 #    http://shiny.rstudio.com/
 #
 
-library(shiny)
-library(scales)
-library(data.table)
-library(plyr)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(DT)
-library(shiny)
-library(stringr)
-library(grid)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
@@ -89,6 +78,8 @@ shinyServer(function(input, output) {
     })
 
     
+    
+##### TAB1  ####  
   output$PvalPlot <- renderPlot({
       
       My_data()
@@ -517,8 +508,7 @@ shinyServer(function(input, output) {
     # Incorporate into its own app
     # 
     
-  })
-
+  }) 
   output$summary_table <- renderDataTable({
       
       My_data()
@@ -561,4 +551,97 @@ shinyServer(function(input, output) {
       # incorporate into its own app
       # 
     })
+  
+  
+##### Tab_2 ####
+My_data_2 <- reactive({
+      req(input$file2)
+      load(input$file2$datapath)
+      
+      theObjectSavedIn <- function(saveFile) { 
+        env <- new.env() 
+        load(saveFile, envir=env) 
+        loadedObjects <- objects(env, all=TRUE) 
+        stopifnot(length(loadedObjects)==1) 
+        env[[loadedObjects]] 
+      }
+      
+      new_list_object <- theObjectSavedIn(input$file2$datapath)
+      
+      Full_data_2 <- new_list_object$regress_results
+      Full_data_2[, Significance_thresholds := gsub(pattern = ".*_(.*$)", replacement = "\\1", x = Full_data_2$score,perl = T)]
+      
+      changeCols <- c("estimate", "SE", "zvalue", "p", "r.squared.Nagel", "lower", "upper")
+      Full_data_2[,(changeCols) := lapply(.SD, as.numeric), .SDcols = changeCols]
+    
+      # Read in significance level input
+      significance_threshold_2.input <- unique(Full_data_2$Significance_thresholds)
+      DSM_2.input <- unique(Full_data_2$samples.i.)
+      
+      ## Identify which rows in the data table contain whole genome information
+      Full_data_2[, Number_of_GWAS := gsub(pattern = "(^.*)_WHOLE.*", replacement = "\\1", x = Full_data_2$score, perl = T)]
+      Number_of_GWAS_vector <- length(unique(Full_data_2$Number_of_GWAS))
+      GWAS_to_choose_from <- unique(Full_data_2$Number_of_GWAS)
+      
+      Full_data_2$logp <- -log10(Full_data_2$p)
+      Full_data_2$SE_higher <- Full_data_2$estimate + Full_data_2$SE
+      Full_data_2$SE_lower <- Full_data_2$estimate - Full_data_2$SE
+      Full_data_2$r2_dir <- 100 * (as.numeric(Full_data_2$r.squared) *
+                                   (sign(as.numeric(Full_data_2$estimate))))
+      Full_data_2$p_value_text <- paste("p =", scientific(Full_data_2$p, digits = 2), sep = " ")
+      
+      output$Significance_threshold_2 <- renderUI({
+        checkboxGroupInput("Significance_threshold_2", label = "PRS P Value Threshold:",
+                           choices = significance_threshold_2.input, selected = "0.05")
+      })
+      
+      output$DSM_2 <- renderUI({
+        selectInput("DSM_2", label = "DSM type:",
+                    choices = DSM_2.input)
+      })
+      
+      output$GWAS_to_include <- renderUI({
+        checkboxGroupInput("GWAS_to_include", label = "Choose GWAS for input into PCA",
+                           choices = GWAS_to_choose_from)
+      })
+      
+      Full_data_2
+    })
+
+output$PCA_plot    
+  
+My_data_2()
+  
+  if (is.null(input$Significance_threshold_2)) {
+    return(NULL)
+  }    
+  if (is.null(input$GWAS_to_include)) {
+    return(NULL)
+  }    
+
+  
+  ## Limit data table to input arguments and pipe to limiting columns and ordering based on significance
+  sample_analysis <- My_data_2() %>%
+    filter(samples.i. == input$DSM_2,
+           Significance_thresholds %in% input$Significance_threshold_2,
+           Number_of_GWAS %in% input$GWAS_to_include
+    )
+  
+  
+  ## Format DF to DT and apply fixes to the number of decimal points, format "g" = change to nn.dde-dd only if required
+  
+  ## Okay, so faceting was not meant to have differing axis lables, but in order to place the axis in the right order, I need to specify just one threshold and repeat across all facets
+  ## I've used a short-cut here, the line 108 sorts the alterations column by the score and type and then only selects the unique labels for these columns so that the structure is "repeated" across all thresholds
+  ## despite not knowing how many thresholds are in the analysis...i've saved a few lines of code and thought here.
+  
+  Sample_analysis_2 <- as.data.table(sample_analysis)
+  Sample_analysis_2$score <- factor(Sample_analysis_2$score, levels = Sample_analysis_2$score[order(Sample_analysis_2$score, Sample_analysis_2$)])
+  Sample_analysis_2
+  
+# Apply groupings to pick out the best threshold from the p-values mentioned and use those profiles in the PCA of the polygenic risk scores
+  
+
+####  
+  
+  
   })

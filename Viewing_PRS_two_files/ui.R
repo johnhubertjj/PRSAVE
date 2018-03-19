@@ -7,23 +7,14 @@
 #    http://shiny.rstudio.com/
 #
 
-library(scales)
-library(data.table)
-library(plyr)
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(DT)
-library(shiny)
-library(stringr)
-library(grid)
+
 # Define UI for application that draws a histogram
-shinyUI( fluidPage(
-          # Sidebar layout with input and output definitions ----
+shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
+            fluid = T,
+            tabPanel("Gene-set Analysis Viewer",
+            # Sidebar layout with input and output definitions ----
           
-          headerPanel("PRS gene-set analysis viewer"),
-          
-          sidebarLayout(
+            sidebarLayout(
             
             ## Write shiny UI across 4 parameters in the data table
             sidebarPanel(
@@ -57,6 +48,25 @@ shinyUI( fluidPage(
                 tabPanel("Table", dataTableOutput("summary_table"))
               )
             )
+          )
+          ),
+          tabPanel("Combined_PRS",
+          
+            sidebarLayout(         
+              ## Write shiny UI across 4 parameters in the data table
+              sidebarPanel(
+                fileInput("file2", "Choose an input file",
+                      multiple = F),
+                uiOutput("GWAS_to_include"),
+                uiOutput("Significance_threshold_2"
+                ),
+                uiOutput("DSM_2")
+              ),
+            mainPanel(
+              plotOutput("PCA_plot"),
+              plotOutput("PRS_plots")
+            )
+          )
           )
         )
 ) 
