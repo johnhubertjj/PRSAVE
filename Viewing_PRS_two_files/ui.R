@@ -56,15 +56,14 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
               ## Write shiny UI across 4 parameters in the data table
               sidebarPanel(
                 fileInput("file2", "Choose an input file",
-                      multiple = F),
+                      multiple = T),
                 uiOutput("GWAS_to_include"),
                 uiOutput("Significance_threshold_2"
                 ),
                 uiOutput("DSM_2")
               ),
             mainPanel(
-              plotOutput("PCA_plot"),
-              plotOutput("PRS_plots")
+              plotOutput("PCA_plot")
             )
           )
           )

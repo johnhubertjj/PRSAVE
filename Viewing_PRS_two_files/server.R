@@ -556,7 +556,7 @@ shinyServer(function(input, output) {
 ##### Tab_2 ####
 My_data_2 <- reactive({
       req(input$file2)
-      load(input$file2$datapath)
+      test <- input$file2$datapath
       
       theObjectSavedIn <- function(saveFile) { 
         env <- new.env() 
@@ -605,12 +605,15 @@ My_data_2 <- reactive({
                            choices = GWAS_to_choose_from)
       })
       
-      Full_data_2
+      new_list_object$regress_results <- Full_data_2
+      new_list_object
     })
 
-output$PCA_plot    
+output$PCA_plot  <- renderPrint({
   
-My_data_2()
+  
+  
+sample_analysis <- My_data_2()
   
   if (is.null(input$Significance_threshold_2)) {
     return(NULL)
@@ -620,23 +623,23 @@ My_data_2()
   }    
 
   
-  ## Limit data table to input arguments and pipe to limiting columns and ordering based on significance
-  sample_analysis <- My_data_2() %>%
+
+  sample_analysis <- sample_analysis$regress_results  %>%
     filter(samples.i. == input$DSM_2,
            Significance_thresholds %in% input$Significance_threshold_2,
            Number_of_GWAS %in% input$GWAS_to_include
     )
   
+My_data_2()
+
+})
   
   ## Format DF to DT and apply fixes to the number of decimal points, format "g" = change to nn.dde-dd only if required
   
   ## Okay, so faceting was not meant to have differing axis lables, but in order to place the axis in the right order, I need to specify just one threshold and repeat across all facets
   ## I've used a short-cut here, the line 108 sorts the alterations column by the score and type and then only selects the unique labels for these columns so that the structure is "repeated" across all thresholds
   ## despite not knowing how many thresholds are in the analysis...i've saved a few lines of code and thought here.
-  
-  Sample_analysis_2 <- as.data.table(sample_analysis)
-  Sample_analysis_2$score <- factor(Sample_analysis_2$score, levels = Sample_analysis_2$score[order(Sample_analysis_2$score, Sample_analysis_2$)])
-  Sample_analysis_2
+
   
 # Apply groupings to pick out the best threshold from the p-values mentioned and use those profiles in the PCA of the polygenic risk scores
   
