@@ -52,6 +52,12 @@ shinyServer(function(input, output) {
       alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "long_term_potentiation",replacement = "LTP")
       alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "action_potential",replacement = "AP")
       alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "depolarization",replacement = "DP")
+      
+      # IQ alterations
+      alterations[-whole_genome_plot_all_positions] <- tolower(alterations[-whole_genome_plot_all_positions])
+      alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "nervous_system",replacement = "NS")
+      alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "regulation",replacement = "reg")
+      
       alterations[whole_genome_genic_positions_Full_data] <- "Whole Genome PRS GENIC"
       alterations[whole_genome_all_genome_positions_Full_data] <- "Whole Genome PRS ALL"
       
@@ -119,7 +125,8 @@ shinyServer(function(input, output) {
       p <- p +
         geom_point(aes(colour = Type))
       
-      p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
+      
+      p <- p + scale_x_discrete(labels=levels(Sample_analysis_2$alterations))
       
       p <- p + facet_grid(. ~ Significance_thresholds,scales = "free_x", space = "free_x") +
         theme(strip.text.x = element_text(size = 10))
@@ -553,30 +560,41 @@ shinyServer(function(input, output) {
     })
   
   
-##### Tab_2 ####
+##### TAB_2 ####
 My_data_2 <- reactive({
+      
+      ## Require input from files
       req(input$file2)
-      test <- input$file2$datapath
+      req(input$file3)
       
-      theObjectSavedIn <- function(saveFile) { 
-        env <- new.env() 
-        load(saveFile, envir=env) 
-        loadedObjects <- objects(env, all=TRUE) 
-        stopifnot(length(loadedObjects)==1) 
-        env[[loadedObjects]] 
-      }
+      #file <- rep("a",2)
+      #file[1] <- paste0(Location_of_analysis,Name_of_analysis,"_",time_of_analysis,".txt")
+      #file[2] <- paste0(Location_of_analysis,Name_of_analysis,"_PRS_Profiles_for_shiny",time_of_analysis,".txt")
+      #File_two_data <- lapply(file, fread, header=TRUE) 
+  
+      ## Discern which data table has linear regression information and which has the polygenic risk score profiles
+      #File_two_data <- lapply(input$file2$datapath, fread, header=TRUE) 
+      #colnames_first <- colnames(File_two_data[[1]])
       
-      new_list_object <- theObjectSavedIn(input$file2$datapath)
+      #if (colnames_first[1] == "FID") { 
+      #  Full_data_2 <- File_two_data[[2]]
+      #  Polygenic_risk_scores <- File_two_data[[1]]
+      #}else{
+      #  Full_data_2 <- File_two_data[[1]]
+      #  Polygenic_risk_scores <- File_two_data[[2]]
+      #}
       
-      Full_data_2 <- new_list_object$regress_results
-      Full_data_2[, Significance_thresholds := gsub(pattern = ".*_(.*$)", replacement = "\\1", x = Full_data_2$score,perl = T)]
+      Full_data_2 <- fread(input$file2$datapath)
+      Polygenic_risk_scores <- fread(input$file3$datapath)
       
-      changeCols <- c("estimate", "SE", "zvalue", "p", "r.squared.Nagel", "lower", "upper")
+      Full_data_2[, Significance_thresholds := gsub(pattern = ".*_(.*$)", replacement = "\\1", x = Full_data_2$score, perl = T)]
+      
+      changeCols <- c("estimate", "SE", "zvalue", "p", "r.squared.Nagel", "lower", "upper","Significance_thresholds")
       Full_data_2[,(changeCols) := lapply(.SD, as.numeric), .SDcols = changeCols]
     
       # Read in significance level input
-      significance_threshold_2.input <- unique(Full_data_2$Significance_thresholds)
-      DSM_2.input <- unique(Full_data_2$samples.i.)
+      significance_threshold_2_input <- unique(Full_data_2$Significance_thresholds)
+      DSM_2_input <- unique(Full_data_2$samples.i.)
       
       ## Identify which rows in the data table contain whole genome information
       Full_data_2[, Number_of_GWAS := gsub(pattern = "(^.*)_WHOLE.*", replacement = "\\1", x = Full_data_2$score, perl = T)]
@@ -592,12 +610,12 @@ My_data_2 <- reactive({
       
       output$Significance_threshold_2 <- renderUI({
         checkboxGroupInput("Significance_threshold_2", label = "PRS P Value Threshold:",
-                           choices = significance_threshold_2.input, selected = "0.05")
+                           choices = significance_threshold_2_input, selected = "0.05")
       })
       
       output$DSM_2 <- renderUI({
         selectInput("DSM_2", label = "DSM type:",
-                    choices = DSM_2.input)
+                    choices = DSM_2_input)
       })
       
       output$GWAS_to_include <- renderUI({
@@ -605,15 +623,13 @@ My_data_2 <- reactive({
                            choices = GWAS_to_choose_from)
       })
       
-      new_list_object$regress_results <- Full_data_2
-      new_list_object
+      File_two_data <- list (Full_data_2 = Full_data_2,
+                             Polygenic_risk_scores = Polygenic_risk_scores)
+      File_two_data
     })
 
-output$PCA_plot  <- renderPrint({
-  
-  
-  
-sample_analysis <- My_data_2()
+output$PCA_plot  <- renderPlot({
+My_data_2() 
   
   if (is.null(input$Significance_threshold_2)) {
     return(NULL)
@@ -621,19 +637,52 @@ sample_analysis <- My_data_2()
   if (is.null(input$GWAS_to_include)) {
     return(NULL)
   }    
-
   
 
-  sample_analysis <- sample_analysis$regress_results  %>%
+Full_data_2 <- My_data_2()[[1]]
+sample_analysis <- My_data_2()
+Polygenic_risk_scores <- sample_analysis[[2]]
+  
+
+  PCA_data <- Full_data_2  %>%
     filter(samples.i. == input$DSM_2,
            Significance_thresholds %in% input$Significance_threshold_2,
            Number_of_GWAS %in% input$GWAS_to_include
-    )
+    ) %>%
+    arrange(Number_of_GWAS,p)
   
-My_data_2()
+rows_of_polygenic_risk_scores_to_use <- PCA_data [match(unique(PCA_data$Number_of_GWAS), PCA_data$Number_of_GWAS),]
+  
+Names_for_PCA_analysis <- c("FID","IID",rows_of_polygenic_risk_scores_to_use$score)
 
+Polygenic_risk_scores_for_analysis <- Polygenic_risk_scores[,Names_for_PCA_analysis, with = F]
+test1 <- Names_for_PCA_analysis
+test1 <- gsub(pattern = "(^.*)_WHOLE.*", replacement = "\\1",x = test1)
+setnames(Polygenic_risk_scores_for_analysis, old = Names_for_PCA_analysis, new = test1)
+Columns_to_include <- test1[3:length(test1)]
+
+PCA_analysis <- prcomp(Polygenic_risk_scores_for_analysis[,c(Columns_to_include), with = F],center = T)
+
+g <- ggbiplot(PCA_analysis, ellipse = F, choices = c(1,2), varname.size = input$varname.size, varname.adjust = input$varname.adjust,
+              circle = F, alpha = input$alpha)
+
+#g <- g + scale_color_manual(name="CLOZUK Phenotype",label = c("Controls","Cases"), values = c("#E87D72","#4EA8EC")) 
+##4EA8EC
+#g <- g + scale_colour_brewer(palette = "Set3")
+g <- g + theme(legend.direction = 'horizontal', 
+               legend.position = 'top',
+               legend.box.background = element_blank(),
+               legend.background = element_blank(),
+               legend.key = element_blank(),
+               axis.line = element_line(colour = "black"),
+               panel.background = element_blank(),
+               legend.title = element_text(face = "bold"))
+g
 })
-  
+
+#output$P <- renderPlot()
+#output$Beta_plot_2 <- renderPlot()
+#output$R2_plot_2
   ## Format DF to DT and apply fixes to the number of decimal points, format "g" = change to nn.dde-dd only if required
   
   ## Okay, so faceting was not meant to have differing axis lables, but in order to place the axis in the right order, I need to specify just one threshold and repeat across all facets

@@ -55,12 +55,30 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
             sidebarLayout(         
               ## Write shiny UI across 4 parameters in the data table
               sidebarPanel(
-                fileInput("file2", "Choose an input file",
-                      multiple = T),
+                fileInput("file2", "Choose regression input file",
+                      multiple = F),
+                fileInput("file3", "Choose Polygenic risk score file",
+                          multiple = F),
                 uiOutput("GWAS_to_include"),
                 uiOutput("Significance_threshold_2"
                 ),
-                uiOutput("DSM_2")
+                uiOutput("DSM_2"),
+              
+              sliderInput(inputId = "alpha", 
+                          label = "alpha of PCA plot", 
+                          min = 0, 
+                          max = 1,
+                          value = 0.2),
+              sliderInput(inputId = "varname.size", 
+                          label = "Size of variable name", 
+                          min = 0, 
+                          max = 10,
+                          value = 3),
+              sliderInput(inputId = "varname.adjust", 
+                          label = "distance of variable name from factor loading", 
+                          min = 0, 
+                          max = 10,
+                          value = 2)
               ),
             mainPanel(
               plotOutput("PCA_plot")
