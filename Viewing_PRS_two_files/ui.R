@@ -30,12 +30,14 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
               uiOutput("DSM"),
               uiOutput("geneset"),
               sliderInput('plotHeight', 'Bar which does nothing, use if bored', 
-                          min = 100, max = 2000, value = 1000)
-              
+                          min = 100, max = 2000, value = 1000),
+              actionButton("add", "Add 'Dynamic' tab"),
+              actionButton("remove", "Remove 'Foo' tab")
             ),
             
             mainPanel(
               tabsetPanel(id = "tabs",
+                          
                 tabPanel("Plots",
                         conditionalPanel(
                           condition = "input.tabs == 'Plots' & input.step_regress == 'No'",
