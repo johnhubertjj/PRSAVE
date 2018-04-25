@@ -38,13 +38,25 @@ shinyServer(function(input, output) {
       
       Full_data[whole_genome_plot_all_positions, Type := "Whole_genome"]
       Full_data[!whole_genome_plot_all_positions, Type:= "Pathway"]
-      Full_data$logp <- -log10(Full_data$p)
+      
+      if(any(Full_data$p == 0) == T){
+        Full_data[,P_altered := p]
+        Full_data[P_altered == 0, P_altered := 1e-300]
+        Full_data$logp <- -log10(Full_data$P_altered)
+      }else{
+        Full_data$logp <- -log10(Full_data$p)
+      }
+  
       Full_data$SE_higher <- Full_data$estimate + Full_data$SE
       Full_data$SE_lower <- Full_data$estimate - Full_data$SE
       Full_data$r2_dir <- 100 * (as.numeric(Full_data$r.squared) *
                                    (sign(as.numeric(Full_data$estimate))))
       Full_data$p_value_text <- paste("p =", scientific(Full_data$p, digits = 2), sep = " ")
       
+      if(any(Full_data$p_value_text == "p = 0.0e+00") == TRUE){
+        
+      Full_data[p_value_text == "p = 0.0e+00", p_value_text := "p < 1e-300"]
+      }
       
       ## Add alterations column to create "human readable" formats of the data
       alterations <- Full_data$score
@@ -66,7 +78,7 @@ shinyServer(function(input, output) {
       
       output$Significance_threshold <- renderUI({
         checkboxGroupInput("Significance_threshold", label = "PRS P Value Threshold:",
-                           choices = significance_threshold.input, selected = "0.05")
+                           choices = significance_threshold.input, selected = significance_threshold.input)
       })
       
       output$DSM <- renderUI({
@@ -76,7 +88,7 @@ shinyServer(function(input, output) {
       
       output$geneset <- renderUI({
         checkboxGroupInput("geneset", label = "Geneset PRS to include:",
-                           choices = Gene.sets.input)
+                           choices = Gene.sets.input, selected = Gene.sets.input)
       })
       
       Full_data
@@ -119,6 +131,7 @@ shinyServer(function(input, output) {
       Sample_analysis_2$alterations <- factor(Sample_analysis_2$alterations, levels = unique(Sample_analysis_2$alterations[order(Sample_analysis_2$score, Sample_analysis_2$Type)]))
       Sample_analysis_2
       
+      
       # Plot the resulting table for comparisons
       p <- ggplot(Sample_analysis_2, aes(x=score, y=logp, fill = Type, group=Significance_thresholds))
       
@@ -128,7 +141,7 @@ shinyServer(function(input, output) {
       
       p <- p + scale_x_discrete(labels=levels(Sample_analysis_2$alterations))
       
-      p <- p + facet_grid(. ~ Significance_thresholds,scales = "free_x", space = "free_x") +
+      p <- p + facet_grid(. ~ as.double(Significance_thresholds),scales = "free_x", space = "free_x") +
         theme(strip.text.x = element_text(size = 10))
       
       p <- p + geom_hline(aes(yintercept=1.30103), colour = "red", linetype= "solid", alpha = 0.25)
@@ -193,7 +206,7 @@ shinyServer(function(input, output) {
         geom_point(aes(colour = Type))
       
       p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
-      p <- p + facet_grid(. ~ Significance_thresholds, scales = "free_x", space = "free_x") +
+      p <- p + facet_grid(. ~ as.double(Significance_thresholds), scales = "free_x", space = "free_x") +
         theme(strip.text.x = element_text(size = 10))
       p <- p + geom_hline(aes(yintercept=0), colour = "red", linetype= "solid", alpha = 0.25)
       p <- p + scale_fill_brewer(palette = "Paired")
@@ -262,7 +275,7 @@ shinyServer(function(input, output) {
       
       p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
       p <- p + scale_y_continuous(expand = expand_scale(mult = c(0.2,.6)))
-      p <- p + facet_grid(. ~ Significance_thresholds, scales = "free_x", space = "free_x") +
+      p <- p + facet_grid(. ~ as.double(Significance_thresholds), scales = "free_x", space = "free_x") +
         theme(strip.text.x = element_text(size = 10))
       p <- p + theme(axis.text.x = element_text(angle = 90, size = 10, hjust = 1,vjust = 0.5))
       p <- p + ggtitle(Sample_analysis_2$.id[1])
@@ -327,7 +340,7 @@ shinyServer(function(input, output) {
     
     p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
     
-    p <- p + facet_grid(. ~ Significance_thresholds,scales = "free_x", space = "free_x") +
+    p <- p + facet_grid(. ~ as.double(Significance_thresholds),scales = "free_x", space = "free_x") +
       theme(strip.text.x = element_text(size = 10))
     
     p <- p + geom_hline(aes(yintercept=1.30103), colour = "red", linetype= "solid", alpha = 0.25)
@@ -400,7 +413,7 @@ shinyServer(function(input, output) {
       geom_point(aes(colour = Type))
     
     p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
-    p <- p + facet_grid(. ~ Significance_thresholds, scales = "free_x", space = "free_x") +
+    p <- p + facet_grid(. ~ as.double(Significance_thresholds), scales = "free_x", space = "free_x") +
       theme(strip.text.x = element_text(size = 10))
     p <- p + geom_hline(aes(yintercept=0), colour = "red", linetype= "solid", alpha = 0.25)
     p <- p + scale_fill_brewer(palette = "Paired")
@@ -425,7 +438,7 @@ shinyServer(function(input, output) {
         geom_point(aes(colour = Type))
       
       p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
-      p <- p + facet_grid(. ~ Significance_thresholds, scales = "free_x", space = "free_x") +
+      p <- p + facet_grid(. ~ as.double(Significance_thresholds), scales = "free_x", space = "free_x") +
         theme(strip.text.x = element_text(size = 10))
       p <- p + geom_hline(aes(yintercept=0), colour = "red", linetype= "solid", alpha = 0.25)
       p <- p + scale_fill_brewer(palette = "Paired")
@@ -495,7 +508,7 @@ shinyServer(function(input, output) {
     
     p <- p + scale_x_discrete(labels= levels(Sample_analysis_2$alterations))
     p <- p + scale_y_continuous(expand = expand_scale(mult = c(0.2,.6)))
-    p <- p + facet_grid(. ~ Significance_thresholds, scales = "free_x", space = "free_x") +
+    p <- p + facet_grid(. ~ as.double(Significance_thresholds), scales = "free_x", space = "free_x") +
       theme(strip.text.x = element_text(size = 10))
     p <- p + theme(axis.text.x = element_text(angle = 90, size = 10, hjust = 1,vjust = 0.5))
     p <- p + ggtitle(Sample_analysis_2$.id[1])
