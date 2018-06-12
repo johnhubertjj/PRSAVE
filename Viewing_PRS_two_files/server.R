@@ -9,7 +9,7 @@
 
 
 # Define server logic required to draw a histogram
-shinyServer(function(input, output) {
+shinyServer(function(input, output, session) {
 
     My_data <- reactive({ req(input$file1)
       
@@ -703,6 +703,60 @@ g <- g + theme(legend.direction = 'horizontal',
 g
 })
 
+observe({
+  
+  
+  if (!is.null(input$Significance_threshold)) {
+    Sig_print <- paste(input$Significance_threshold, collapse = ",")
+    
+  } else{
+    Sig_print <- "placeholder"
+  }  
+  
+  if (!is.null(input$geneset)) {
+    geneset_print <- paste("\"",input$geneset,"\"", collapse = ",", sep = "")
+  }else{
+    geneset_print <- "placeholder"
+  }    
+  
+  if (!is.null(input$Gene_regions)) {
+    Generegion_print <- paste("\"",input$Gene_regions,"\"", collapse = ",", sep="")
+  } else{
+    Generegion_print <- "placeholder"
+  }   
+  
+  if (!is.null(input$DSM)) {
+    DSM_print <- paste0("\"",input$DSM,"\"")
+  }else{
+    DSM_print <- "placeholder"
+  }
+  
+  if (!is.null(input$file1$datapath)){
+    data_path_print <- paste(input$file1$datapath)
+  }else{
+    data_path_print <- "path_not_found"
+  }
+  
+  output_text <- paste0( "input <- list() \n",
+                         "\n input$Significance_threshold <- c(", Sig_print,")",
+                         "\n input$geneset <- c(", geneset_print,")", 
+                         "\n input$Gene_regions <- c(", Generegion_print,")", 
+                         "\n input$DSM <- ", DSM_print, 
+                         "\n data_print_path <- ", data_path_print)
+  
+  
+  
+  updateTextInput(session,"text_2",value = output_text)
+  
+  #number_of_characters <- paste(text_output_speaker_2, collapse = " ")
+  #number_of_characters <- nchar(input$text_2)
+  #output$length_text_left <- renderText(280 - number_of_characters)
+})
+
+output$clip <- renderUI({
+  rclipButton("clipbtn", "Copy to Clipboard", input$text_2, icon("clipboard"))
+})
+
 #output$P <- renderPlot()
 #output$Beta_plot_2 <- renderPlot()
 #output$R2_plot_2
@@ -717,6 +771,7 @@ g
   
 
 ####  
+
   
   
   })

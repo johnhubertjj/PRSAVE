@@ -48,7 +48,16 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
                                          plotOutput('PvalPlot_step'),
                                          plotOutput('Beta_plot_step'),
                                          plotOutput('R2_plot_step'))),
-                tabPanel("Table", dataTableOutput("summary_table"))
+                tabPanel("Table", dataTableOutput("summary_table")),
+                tabPanel("Input variables",
+                         rclipboardSetup(),
+                         
+
+                         textAreaInput("text_2",label = "Full message will appear here:",width = "500px",height = "100px", resize = "both",
+                                       placeholder = "Twitter handles will appear here at the end of your message depending on the options selected to the left (eg: Pint of Science is Great! @virustinkerer)")
+                         ,
+                         # UI ouputs for the copy-to-clipboard buttons
+                         uiOutput("clip"))
               )
             )
           )
