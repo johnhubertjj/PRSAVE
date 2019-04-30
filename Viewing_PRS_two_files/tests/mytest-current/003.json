@@ -1,0 +1,1012 @@
+{
+  "input": {
+    "add": 0,
+    "alpha": 0.2,
+    "DSM": "Everything",
+    "file1": {
+      "name": [
+        "COGS_IQ_pathway_PRS_analysis_run_2_update_25-07-2018_at_08.35.txt"
+      ],
+      "size": [
+        198981
+      ],
+      "type": [
+        "text/plain"
+      ],
+      "datapath": [
+        "0.txt"
+      ]
+    },
+    "file2": null,
+    "file3": null,
+    "Gene_regions": [
+      "extended",
+      "Full"
+    ],
+    "geneset": [
+      "5HT_2C",
+      "abnormal_grooming_behavior",
+      "abnormal_behavior",
+      "abnormal_behavioral_response_to_xenobiotic",
+      "abnormal_neuron_differentiation",
+      "Lek2015_LoFintolerant_90",
+      "abnormal_nervous_system_electrophysiology",
+      "abnormal_long_term_potentiation",
+      "Cav2_channels",
+      "FMRP_targets",
+      "whole_genome"
+    ],
+    "plotHeight": 1000,
+    "remove": 0,
+    "Significance_threshold": [
+      "5e-08",
+      "1e-06",
+      "1e-04",
+      "0.01",
+      "0.05",
+      "0.1",
+      "0.2",
+      "0.5",
+      "1"
+    ],
+    "step_regress": "No",
+    "tabs": "Plots",
+    "text_2": "input <- list() \n\n input$Significance_threshold <- c(5e-08,1e-06,1e-04,0.01,0.05,0.1,0.2,0.5,1)\n input$geneset <- c(\"5HT_2C\",\"abnormal_grooming_behavior\",\"abnormal_behavior\",\"abnormal_behavioral_response_to_xenobiotic\",\"abnormal_neuron_differentiation\",\"Lek2015_LoFintolerant_90\",\"abnormal_nervous_system_electrophysiology\",\"abnormal_long_term_potentiation\",\"Cav2_channels\",\"FMRP_targets\",\"whole_genome\")\n input$Gene_regions <- c(\"extended\",\"Full\")\n input$DSM <- \"Everything\"\n data_print_path <- /var/folders/2d/_ms20mnx1c11dkv26l81wt8w0000gn/T//RtmpKcmFFY/b216cb484e79945846480b77/0.txt",
+    "varname.adjust": 2,
+    "varname.size": 3
+  },
+  "output": {
+    "Beta_plot": {
+      "src": "[image data sha1: f72f3eceb3a9754799b13ba03b89b07e86ff2c1f]",
+      "width": 631,
+      "height": 400,
+      "coordmap": [
+        {
+          "panel": 1,
+          "row": 1,
+          "col": 1,
+          "panel_vars": {
+            "panelvar1": 5e-08
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 38.7137704875371,
+            "right": 87.2310172920866,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "col": 2,
+          "panel_vars": {
+            "panelvar1": 1e-06
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 92.7104693468811,
+            "right": 141.227716151431,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "col": 3,
+          "panel_vars": {
+            "panelvar1": 0.0001
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 146.707168206225,
+            "right": 195.224415010774,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 4,
+          "row": 1,
+          "col": 4,
+          "panel_vars": {
+            "panelvar1": 0.01
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 200.703867065569,
+            "right": 249.221113870118,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 5,
+          "row": 1,
+          "col": 5,
+          "panel_vars": {
+            "panelvar1": 0.05
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 254.700565924913,
+            "right": 303.217812729462,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 6,
+          "row": 1,
+          "col": 6,
+          "panel_vars": {
+            "panelvar1": 0.1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 308.697264784257,
+            "right": 357.214511588806,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 7,
+          "row": 1,
+          "col": 7,
+          "panel_vars": {
+            "panelvar1": 0.2
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 362.693963643601,
+            "right": 411.21121044815,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 8,
+          "row": 1,
+          "col": 8,
+          "panel_vars": {
+            "panelvar1": 0.5
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 416.690662502945,
+            "right": 465.207909307494,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 9,
+          "row": 1,
+          "col": 9,
+          "panel_vars": {
+            "panelvar1": 1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.166594005487792,
+            "top": 0.313915632192925
+          },
+          "mapping": {
+            "ymin": "~upper",
+            "ymax": "~lower",
+            "x": "~score",
+            "y": "~estimate",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 470.687361362289,
+            "right": 519.204608166838,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        }
+      ]
+    },
+    "Beta_plot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "DSM": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"DSM\">DSM type:<\/label>\n  <div>\n    <select id=\"DSM\"><option value=\"Everything\" selected>Everything<\/option>\n<option value=\"broad\">broad<\/option>\n<option value=\"narrow\">narrow<\/option>\n<option value=\"All_minus_narrow\">All_minus_narrow<\/option><\/select>\n    <script type=\"application/json\" data-for=\"DSM\" data-nonempty=\"\">{}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "geneset": {
+      "html": "<div id=\"geneset\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\">\n  <label class=\"control-label\" for=\"geneset\">Geneset PRS to include:<\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"5HT_2C\" checked=\"checked\"/>\n        <span>5HT_2C<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_grooming_behavior\" checked=\"checked\"/>\n        <span>abnormal_grooming_behavior<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_behavior\" checked=\"checked\"/>\n        <span>abnormal_behavior<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_behavioral_response_to_xenobiotic\" checked=\"checked\"/>\n        <span>abnormal_behavioral_response_to_xenobiotic<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_neuron_differentiation\" checked=\"checked\"/>\n        <span>abnormal_neuron_differentiation<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"Lek2015_LoFintolerant_90\" checked=\"checked\"/>\n        <span>Lek2015_LoFintolerant_90<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_nervous_system_electrophysiology\" checked=\"checked\"/>\n        <span>abnormal_nervous_system_electrophysiology<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_long_term_potentiation\" checked=\"checked\"/>\n        <span>abnormal_long_term_potentiation<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"Cav2_channels\" checked=\"checked\"/>\n        <span>Cav2_channels<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"FMRP_targets\" checked=\"checked\"/>\n        <span>FMRP_targets<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"whole_genome\" checked=\"checked\"/>\n        <span>whole_genome<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "PvalPlot": {
+      "src": "[image data sha1: 5ab464b04323607c81cb44fc855b059ccfbf8b5d]",
+      "width": 631,
+      "height": 400,
+      "coordmap": [
+        {
+          "panel": 1,
+          "row": 1,
+          "col": 1,
+          "panel_vars": {
+            "panelvar1": 5e-08
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 40.6817403819463,
+            "right": 88.9803238648947,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "col": 2,
+          "panel_vars": {
+            "panelvar1": 1e-06
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 94.4597759196892,
+            "right": 142.758359402638,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "col": 3,
+          "panel_vars": {
+            "panelvar1": 0.0001
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 148.237811457432,
+            "right": 196.536394940381,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 4,
+          "row": 1,
+          "col": 4,
+          "panel_vars": {
+            "panelvar1": 0.01
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 202.015846995175,
+            "right": 250.314430478124,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 5,
+          "row": 1,
+          "col": 5,
+          "panel_vars": {
+            "panelvar1": 0.05
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 255.793882532918,
+            "right": 304.092466015867,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 6,
+          "row": 1,
+          "col": 6,
+          "panel_vars": {
+            "panelvar1": 0.1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 309.571918070661,
+            "right": 357.870501553609,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 7,
+          "row": 1,
+          "col": 7,
+          "panel_vars": {
+            "panelvar1": 0.2
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 363.349953608404,
+            "right": 411.648537091352,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 8,
+          "row": 1,
+          "col": 8,
+          "panel_vars": {
+            "panelvar1": 0.5
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 417.127989146147,
+            "right": 465.426572629095,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 9,
+          "row": 1,
+          "col": 9,
+          "panel_vars": {
+            "panelvar1": 1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -14.9985316528488,
+            "top": 314.999930078707
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~logp",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 470.90602468389,
+            "right": 519.204608166838,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        }
+      ]
+    },
+    "PvalPlot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "R2_plot": {
+      "src": "[image data sha1: f5fa7c28013511bfe44bd38bc442ae0767672a10]",
+      "width": 631,
+      "height": 400,
+      "coordmap": [
+        {
+          "panel": 1,
+          "row": 1,
+          "col": 1,
+          "panel_vars": {
+            "panelvar1": 5e-08
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 28.4442397143743,
+            "right": 78.1025454937196,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 2,
+          "row": 1,
+          "col": 2,
+          "panel_vars": {
+            "panelvar1": 1e-06
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 83.5819975485141,
+            "right": 133.240303327859,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 3,
+          "row": 1,
+          "col": 3,
+          "panel_vars": {
+            "panelvar1": 0.0001
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 138.719755382654,
+            "right": 188.378061161999,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 4,
+          "row": 1,
+          "col": 4,
+          "panel_vars": {
+            "panelvar1": 0.01
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 193.857513216794,
+            "right": 243.515818996139,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 5,
+          "row": 1,
+          "col": 5,
+          "panel_vars": {
+            "panelvar1": 0.05
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 248.995271050934,
+            "right": 298.653576830279,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 6,
+          "row": 1,
+          "col": 6,
+          "panel_vars": {
+            "panelvar1": 0.1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 304.133028885073,
+            "right": 353.791334664419,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 7,
+          "row": 1,
+          "col": 7,
+          "panel_vars": {
+            "panelvar1": 0.2
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 359.270786719213,
+            "right": 408.929092498559,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 8,
+          "row": 1,
+          "col": 8,
+          "panel_vars": {
+            "panelvar1": 0.5
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 414.408544553353,
+            "right": 464.066850332698,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        },
+        {
+          "panel": 9,
+          "row": 1,
+          "col": 9,
+          "panel_vars": {
+            "panelvar1": 1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "domain": {
+            "left": 0.4,
+            "right": 12.6,
+            "bottom": -0.666528766531644,
+            "top": 3.86296752044767
+          },
+          "mapping": {
+            "colour": "~Type",
+            "x": "~score",
+            "y": "~r2_dir",
+            "fill": "~Type",
+            "group": "~Significance_thresholds",
+            "panelvar1": "as.double(Significance_thresholds)"
+          },
+          "range": {
+            "left": 469.546302387493,
+            "right": 519.204608166838,
+            "bottom": 171.864940068493,
+            "top": 41.3838397607284
+          }
+        }
+      ]
+    },
+    "R2_plot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "Significance_threshold": {
+      "html": "<div id=\"Significance_threshold\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\">\n  <label class=\"control-label\" for=\"Significance_threshold\">PRS P Value Threshold:<\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"5e-08\" checked=\"checked\"/>\n        <span>5e-08<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"1e-06\" checked=\"checked\"/>\n        <span>1e-06<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"1e-04\" checked=\"checked\"/>\n        <span>1e-04<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.01\" checked=\"checked\"/>\n        <span>0.01<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.05\" checked=\"checked\"/>\n        <span>0.05<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.1\" checked=\"checked\"/>\n        <span>0.1<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.2\" checked=\"checked\"/>\n        <span>0.2<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.5\" checked=\"checked\"/>\n        <span>0.5<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"1\" checked=\"checked\"/>\n        <span>1<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

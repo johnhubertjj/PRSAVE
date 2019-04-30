@@ -1,0 +1,199 @@
+{
+  "input": {
+    "add": 0,
+    "alpha": 0.2,
+    "DSM": "Everything",
+    "file1": {
+      "name": [
+        "COGS_IQ_pathway_PRS_analysis_run_2_update_25-07-2018_at_08.35.txt"
+      ],
+      "size": [
+        198981
+      ],
+      "type": [
+        "text/plain"
+      ],
+      "datapath": [
+        "0.txt"
+      ]
+    },
+    "file2": null,
+    "file3": null,
+    "Gene_regions": null,
+    "geneset": [
+      "5HT_2C",
+      "abnormal_grooming_behavior",
+      "abnormal_behavior",
+      "abnormal_behavioral_response_to_xenobiotic",
+      "abnormal_neuron_differentiation",
+      "Lek2015_LoFintolerant_90",
+      "abnormal_nervous_system_electrophysiology",
+      "abnormal_long_term_potentiation",
+      "Cav2_channels",
+      "FMRP_targets",
+      "whole_genome"
+    ],
+    "plotHeight": 1000,
+    "remove": 0,
+    "Significance_threshold": [
+      "5e-08",
+      "1e-06",
+      "1e-04",
+      "0.01",
+      "0.05",
+      "0.1",
+      "0.2",
+      "0.5",
+      "1"
+    ],
+    "step_regress": "No",
+    "tabs": "Plots",
+    "text_2": "input <- list() \n\n input$Significance_threshold <- c(5e-08,1e-06,1e-04,0.01,0.05,0.1,0.2,0.5,1)\n input$geneset <- c(\"5HT_2C\",\"abnormal_grooming_behavior\",\"abnormal_behavior\",\"abnormal_behavioral_response_to_xenobiotic\",\"abnormal_neuron_differentiation\",\"Lek2015_LoFintolerant_90\",\"abnormal_nervous_system_electrophysiology\",\"abnormal_long_term_potentiation\",\"Cav2_channels\",\"FMRP_targets\",\"whole_genome\")\n input$Gene_regions <- c(placeholder)\n input$DSM <- \"Everything\"\n data_print_path <- /var/folders/2d/_ms20mnx1c11dkv26l81wt8w0000gn/T//RtmpKcmFFY/b216cb484e79945846480b77/0.txt",
+    "varname.adjust": 2,
+    "varname.size": 3
+  },
+  "output": {
+    "Beta_plot": {
+      "src": "[image data sha1: 0e25b08c91c06b1b3dac5f40101c6b63209932d4]",
+      "width": 631,
+      "height": 400,
+      "coordmap": [
+        {
+          "domain": {
+            "left": -0.04,
+            "right": 1.04,
+            "bottom": -0.04,
+            "top": 1.04
+          },
+          "range": {
+            "left": 0,
+            "right": 631,
+            "bottom": 399,
+            "top": -1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "mapping": {
+
+          }
+        }
+      ]
+    },
+    "Beta_plot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "DSM": {
+      "html": "<div class=\"form-group shiny-input-container\">\n  <label class=\"control-label\" for=\"DSM\">DSM type:<\/label>\n  <div>\n    <select id=\"DSM\"><option value=\"Everything\" selected>Everything<\/option>\n<option value=\"broad\">broad<\/option>\n<option value=\"narrow\">narrow<\/option>\n<option value=\"All_minus_narrow\">All_minus_narrow<\/option><\/select>\n    <script type=\"application/json\" data-for=\"DSM\" data-nonempty=\"\">{}<\/script>\n  <\/div>\n<\/div>",
+      "deps": [
+        {
+          "name": "selectize",
+          "version": "0.11.2",
+          "src": {
+            "href": "shared/selectize"
+          },
+          "meta": null,
+          "script": null,
+          "stylesheet": "css/selectize.bootstrap3.css",
+          "head": "<!--[if lt IE 9]>\n<script src=\"shared/selectize/js/es5-shim.min.js\"><\/script>\n<![endif]-->\n<script src=\"shared/selectize/js/selectize.min.js\"><\/script>",
+          "attachment": null,
+          "package": null,
+          "all_files": true
+        }
+      ]
+    },
+    "geneset": {
+      "html": "<div id=\"geneset\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\">\n  <label class=\"control-label\" for=\"geneset\">Geneset PRS to include:<\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"5HT_2C\" checked=\"checked\"/>\n        <span>5HT_2C<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_grooming_behavior\" checked=\"checked\"/>\n        <span>abnormal_grooming_behavior<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_behavior\" checked=\"checked\"/>\n        <span>abnormal_behavior<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_behavioral_response_to_xenobiotic\" checked=\"checked\"/>\n        <span>abnormal_behavioral_response_to_xenobiotic<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_neuron_differentiation\" checked=\"checked\"/>\n        <span>abnormal_neuron_differentiation<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"Lek2015_LoFintolerant_90\" checked=\"checked\"/>\n        <span>Lek2015_LoFintolerant_90<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_nervous_system_electrophysiology\" checked=\"checked\"/>\n        <span>abnormal_nervous_system_electrophysiology<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"abnormal_long_term_potentiation\" checked=\"checked\"/>\n        <span>abnormal_long_term_potentiation<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"Cav2_channels\" checked=\"checked\"/>\n        <span>Cav2_channels<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"FMRP_targets\" checked=\"checked\"/>\n        <span>FMRP_targets<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"geneset\" value=\"whole_genome\" checked=\"checked\"/>\n        <span>whole_genome<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    },
+    "PvalPlot": {
+      "src": "[image data sha1: 0e25b08c91c06b1b3dac5f40101c6b63209932d4]",
+      "width": 631,
+      "height": 400,
+      "coordmap": [
+        {
+          "domain": {
+            "left": -0.04,
+            "right": 1.04,
+            "bottom": -0.04,
+            "top": 1.04
+          },
+          "range": {
+            "left": 0,
+            "right": 631,
+            "bottom": 399,
+            "top": -1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "mapping": {
+
+          }
+        }
+      ]
+    },
+    "PvalPlot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "R2_plot": {
+      "src": "[image data sha1: 0e25b08c91c06b1b3dac5f40101c6b63209932d4]",
+      "width": 631,
+      "height": 400,
+      "coordmap": [
+        {
+          "domain": {
+            "left": -0.04,
+            "right": 1.04,
+            "bottom": -0.04,
+            "top": 1.04
+          },
+          "range": {
+            "left": 0,
+            "right": 631,
+            "bottom": 399,
+            "top": -1
+          },
+          "log": {
+            "x": null,
+            "y": null
+          },
+          "mapping": {
+
+          }
+        }
+      ]
+    },
+    "R2_plot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "Significance_threshold": {
+      "html": "<div id=\"Significance_threshold\" class=\"form-group shiny-input-checkboxgroup shiny-input-container\">\n  <label class=\"control-label\" for=\"Significance_threshold\">PRS P Value Threshold:<\/label>\n  <div class=\"shiny-options-group\">\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"5e-08\" checked=\"checked\"/>\n        <span>5e-08<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"1e-06\" checked=\"checked\"/>\n        <span>1e-06<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"1e-04\" checked=\"checked\"/>\n        <span>1e-04<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.01\" checked=\"checked\"/>\n        <span>0.01<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.05\" checked=\"checked\"/>\n        <span>0.05<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.1\" checked=\"checked\"/>\n        <span>0.1<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.2\" checked=\"checked\"/>\n        <span>0.2<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"0.5\" checked=\"checked\"/>\n        <span>0.5<\/span>\n      <\/label>\n    <\/div>\n    <div class=\"checkbox\">\n      <label>\n        <input type=\"checkbox\" name=\"Significance_threshold\" value=\"1\" checked=\"checked\"/>\n        <span>1<\/span>\n      <\/label>\n    <\/div>\n  <\/div>\n<\/div>",
+      "deps": [
+
+      ]
+    }
+  },
+  "export": {
+
+  }
+}

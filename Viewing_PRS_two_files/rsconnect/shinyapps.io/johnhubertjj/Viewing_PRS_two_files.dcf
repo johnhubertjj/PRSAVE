@@ -5,8 +5,9 @@ account: johnhubertjj
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 299926
-bundleId: 1269907
+bundleId: 1526366
 url: https://johnhubertjj.shinyapps.io/Viewing_PRS_two_files/
-when: 1521113715.5186
+when: 1533820733.27878
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: Gene_set_PRS.R|linked_scatter.R

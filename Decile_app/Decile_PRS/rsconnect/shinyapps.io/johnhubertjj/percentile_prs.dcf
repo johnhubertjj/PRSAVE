@@ -1,0 +1,13 @@
+name: percentile_prs
+title: Percentile_PRS
+username:
+account: johnhubertjj
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 897957
+bundleId: 2046924
+url: https://johnhubertjj.shinyapps.io/percentile_prs/
+when: 1556551193.41401
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: centile_table_example_geneset_only.txt|centile_table_example.txt|example_decile_analysis.txt|extended_geneset_SCORE_IQ_Superset_0.05_decile.csv|extended_geneset_SCORE_Lek2015_LoFintolerant_90_0.05_decile.csv
