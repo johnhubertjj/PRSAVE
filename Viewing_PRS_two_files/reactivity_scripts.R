@@ -76,7 +76,7 @@ part_2 <- reactive({
     filter(samples.i. == input$DSM,
            Gene_regions %in% input$Gene_regions,
            Significance_thresholds %in% sigthreshold_debounce(),
-           Genesets %in% input$geneset)
+           Genesets %in% gene_set_debounce())
   
   Sample_analysis_2 <- as.data.table(Current_table)
   Sample_analysis_2$score <- factor(Sample_analysis_2$score, levels = Sample_analysis_2$score[order(Sample_analysis_2$score, Sample_analysis_2$Type)])

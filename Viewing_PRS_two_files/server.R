@@ -34,7 +34,8 @@ source("reactivity_scripts.R", local = TRUE)
     
   # debouncing algorithm -> MUST GO HERE because of the rendering UI scripts above and reactivity scripts have not been processed yet
     sigthreshold_debounce <- reactive({ input$Significance_threshold }) %>% debounce(1000)
-    
+    gene_set_debounce <- reactive({ input$geneset }) %>% debounce(1000)
+
 ##### TAB1  ####  
   output$PvalPlot <- renderPlot({
       
@@ -43,7 +44,7 @@ source("reactivity_scripts.R", local = TRUE)
     if (is.null(sigthreshold_debounce())) {
       return(NULL)
     }    
-    if (is.null(input$geneset)) {
+    if (is.null(gene_set_debounce())) {
       return(NULL)
     }    
     if (is.null(input$Gene_regions)) {
@@ -90,7 +91,7 @@ source("reactivity_scripts.R", local = TRUE)
     if (is.null(sigthreshold_debounce())) {
       return(NULL)
     }    
-    if (is.null(input$geneset)) {
+    if (is.null(gene_set_debounce())) {
       return(NULL)
     }    
     if (is.null(input$Gene_regions)) {
@@ -137,7 +138,7 @@ source("reactivity_scripts.R", local = TRUE)
     if (is.null(sigthreshold_debounce())) {
       return(NULL)
     }    
-    if (is.null(input$geneset)) {
+    if (is.null(gene_set_debounce())) {
       return(NULL)
     }    
     if (is.null(input$Gene_regions)) {
