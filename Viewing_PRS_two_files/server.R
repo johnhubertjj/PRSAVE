@@ -14,16 +14,6 @@ shinyServer(function(input, output, session) {
 source("reactivity_scripts.R", local = TRUE)
 
   
-    observeEvent(input$add, {
-      insertTab(inputId = "tabs",
-                tabPanel("Dynamic", "This a dynamically-added tab"),
-                target = "Table"
-      )
-    })
-    observeEvent(input$remove, {
-      removeTab(inputId = "tabs", target = "bar")
-    })
-
     output$Significance_threshold <- renderUI({ 
       significance_threshold.input <- as.numeric(My_data()$significance_threshold.input)
       checkboxGroupInput("Significance_threshold", label = "PRS P Value Threshold:",
@@ -42,13 +32,15 @@ source("reactivity_scripts.R", local = TRUE)
                          choices = Gene.sets.input, selected = Gene.sets.input)
     })
     
+  # debouncing algorithm -> MUST GO HERE because of the rendering UI scripts above and reactivity scripts have not been processed yet
+    sigthreshold_debounce <- reactive({ input$Significance_threshold }) %>% debounce(1000)
     
 ##### TAB1  ####  
   output$PvalPlot <- renderPlot({
       
     My_data()
     
-    if (is.null(input$Significance_threshold)) {
+    if (is.null(sigthreshold_debounce())) {
       return(NULL)
     }    
     if (is.null(input$geneset)) {
@@ -95,7 +87,7 @@ source("reactivity_scripts.R", local = TRUE)
   output$Beta_plot <- renderPlot({
     
     My_data()
-    if (is.null(input$Significance_threshold)) {
+    if (is.null(sigthreshold_debounce())) {
       return(NULL)
     }    
     if (is.null(input$geneset)) {
@@ -142,7 +134,7 @@ source("reactivity_scripts.R", local = TRUE)
     
     My_data()
     
-    if (is.null(input$Significance_threshold)) {
+    if (is.null(sigthreshold_debounce())) {
       return(NULL)
     }    
     if (is.null(input$geneset)) {

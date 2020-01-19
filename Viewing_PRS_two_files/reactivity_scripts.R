@@ -75,7 +75,7 @@ part_2 <- reactive({
     
     filter(samples.i. == input$DSM,
            Gene_regions %in% input$Gene_regions,
-           Significance_thresholds %in% input$Significance_threshold,
+           Significance_thresholds %in% sigthreshold_debounce(),
            Genesets %in% input$geneset)
   
   Sample_analysis_2 <- as.data.table(Current_table)

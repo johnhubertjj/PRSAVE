@@ -11,4 +11,4 @@ library(grid)
 library(ggbiplot)
 library(rclipboard)
 library(rms)
-
+library(semantic.dashboard)
