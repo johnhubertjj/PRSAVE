@@ -10,7 +10,7 @@
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-
+  options(shiny.maxRequestSize=30*1024^2)
 source("reactivity_scripts.R", local = TRUE)
 
   
@@ -35,7 +35,8 @@ source("reactivity_scripts.R", local = TRUE)
   # debouncing algorithm -> MUST GO HERE because of the rendering UI scripts above and reactivity scripts have not been processed yet
     sigthreshold_debounce <- reactive({ input$Significance_threshold }) %>% debounce(1000)
     gene_set_debounce <- reactive({ input$geneset }) %>% debounce(1000)
-
+    Gene_region_debounce <- reactive({ input$Gene_regions }) %>% debounce(1000)
+    
 ##### TAB1  ####  
   output$PvalPlot <- renderPlot({
       
@@ -47,7 +48,7 @@ source("reactivity_scripts.R", local = TRUE)
     if (is.null(gene_set_debounce())) {
       return(NULL)
     }    
-    if (is.null(input$Gene_regions)) {
+    if (is.null(Gene_region_debounce())) {
       return(NULL)
     }    
 
@@ -94,7 +95,7 @@ source("reactivity_scripts.R", local = TRUE)
     if (is.null(gene_set_debounce())) {
       return(NULL)
     }    
-    if (is.null(input$Gene_regions)) {
+    if (is.null(Gene_region_debounce())) {
       return(NULL)
     }    
     
@@ -141,7 +142,7 @@ source("reactivity_scripts.R", local = TRUE)
     if (is.null(gene_set_debounce())) {
       return(NULL)
     }    
-    if (is.null(input$Gene_regions)) {
+    if (is.null(Gene_region_debounce())) {
       return(NULL)
     }    
     
