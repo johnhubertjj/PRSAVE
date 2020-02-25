@@ -1,6 +1,20 @@
 # Prsice conversion
 
+library(tidyverse)
 # Code that will convert the prsice input to a standardised output
+# Input lists
+
+Full_data <- fread("~/PRSice_shiny_app/test_run_thesis_phenotype.prsice")
+Prsicely_input <- fread("~/Documents/Cognition_paper_automated/Data/Paper_results/Collated_PRS_analysis_forIQ3_COGS.txtCOGS_SCZ_pathway_supersets_analysis_PRS_analysis_run_2_update_both_IQ_and_SCZ_conditional_26-10-2018_at_14.02.txt")
+
+  input <- list() 
+  
+  input$Significance_threshold <- c(0.2,0.5,1)
+  input$geneset <- c("placeholder")
+  input$Gene_regions <- c("placeholder")
+  input$DSM <- "placeholder"
+  input$file1$datapath <- Prsicely_input 
+
 
 Prsice_conversion <- function(Prcise_output){
   # Reactive script
@@ -13,13 +27,13 @@ Prsice_conversion <- function(Prcise_output){
     setnames(Full_data, old = c("Set","Threshold"), new = c("Genesets", "Significance_thresholds"))
     Full_data[, Gene_regions := Genesets]
     
-    ## Need to replace the gene-regions section with a way to differentiate full from gene-set PRS (aka from extended to full, but no need to do that anymore (might get rid of the functionality) )
+    Genome_wide_PRS <- which(Full_data$Gene_regions == "Base")
+    Gene_set_PRS <- which(Full_data$Gene_regions != "Base")
     
+    Full_data[,Gene_regions := "NA"]
+    Full_data[Genome_wide_PRS, Gene_regions := "Genome-wide"]
+    Full_data[Gene_set_PRS, Gene_regions := "Gene-set"]
     
-    ## Create new columns parsing the identifiers in the Full_data score column and input to the shiny app
-    Full_data[, Genesets := gsub(pattern = ".*_SCORE_(.*)_.*", replacement = "\\1", x = Full_data$score,perl = T)]
-    Full_data[, Gene_regions := gsub(pattern = "^(.*)_geneset_SCORE_.*", replacement = "\\1", x = Full_data$score,perl = T)]
-    Full_data[, Significance_thresholds := gsub(pattern = ".*_(.*$)", replacement = "\\1", x = Full_data$score,perl = T)]
     
     ## Create arguments to shiny app
     Gene.sets.input <- unique(Full_data$Genesets)
