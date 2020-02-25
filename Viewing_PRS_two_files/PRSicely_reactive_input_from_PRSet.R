@@ -33,7 +33,8 @@ Prsice_conversion <- function(Prcise_output){
     Full_data[,Gene_regions := "NA"]
     Full_data[Genome_wide_PRS, Gene_regions := "Genome-wide"]
     Full_data[Gene_set_PRS, Gene_regions := "Gene-set"]
-    
+ 
+    # Here is where I got to, need to figure out how all this will work with new input file   
     
     ## Create arguments to shiny app
     Gene.sets.input <- unique(Full_data$Genesets)
