@@ -42,10 +42,10 @@ Prsice_conversion <- function(Prcise_output){
     DSM.input <- unique(Full_data$samples.i.)
     
     ## Identify which rows in the data table contain whole genome information
-    whole_genome_genic_positions_Full_data <- grep(x = Full_data$Gene_regions, pattern = "genic.genome_SCORE_whole_genome",perl = T)
-    whole_genome_all_genome_positions_Full_data <- grep(x = Full_data$Gene_regions, pattern = "All.genome_SCORE_whole_genome",perl = T)
+    whole_genome_genic_positions_Full_data <- NULL
+    whole_genome_all_genome_positions_Full_data <- Genome_wide_PRS
     
-    whole_genome_plot_all_positions <- c(whole_genome_genic_positions_Full_data,whole_genome_all_genome_positions_Full_data)
+    whole_genome_plot_all_positions <- Genome_wide_PRS
     
     ## Change the Gene regions identifier to enable comparison of gene-set PRS to whole genome PRS
     Full_data[whole_genome_genic_positions_Full_data, Gene_regions := gsub(pattern = "^(.*).genic.genome_SCORE_.*", replacement = "\\1", x = Full_data$Gene_regions[whole_genome_genic_positions_Full_data],perl = T)]
