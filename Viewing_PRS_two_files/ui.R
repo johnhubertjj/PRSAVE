@@ -30,9 +30,7 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
               uiOutput("DSM"),
               uiOutput("geneset"),
               sliderInput('plotHeight', 'Bar which does nothing, use if bored', 
-                          min = 100, max = 2000, value = 1000),
-              actionButton("add", "Add 'Dynamic' tab"),
-              actionButton("remove", "Remove 'Foo' tab")
+                          min = 100, max = 2000, value = 1000)
             ),
             
             mainPanel(
@@ -93,6 +91,16 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
                           value = 2)
               ),
             mainPanel(
+              tabsetPanel(id = "tabs_2",
+                          
+                          tabPanel("Plots_2",
+                                     plotOutput('PCA_plot'),
+                                     plotOutput('R2_plot_2'),
+                                   verbatimTextOutput('Significance_threshold_used'),
+                                     textOutput('Number_of_individuals_used')),
+                                    
+  
+                          tabPanel("Table_2", dataTableOutput("summary_table_2"))
                           
             )
           )
