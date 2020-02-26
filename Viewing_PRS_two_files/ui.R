@@ -93,9 +93,10 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
                           value = 2)
               ),
             mainPanel(
-              plotOutput("PCA_plot")
+                          
             )
           )
           )
         )
 ) 
+)

@@ -1,0 +1,94 @@
+{
+  "input": {
+    "add": 0,
+    "alpha": 0.2,
+    "file1": null,
+    "file2": null,
+    "file3": null,
+    "Gene_regions": null,
+    "plotHeight": 1000,
+    "remove": 0,
+    "step_regress": "No",
+    "tabs": "Plots",
+    "text_2": "input <- list() \n\n input$Significance_threshold <- c(placeholder)\n input$geneset <- c(placeholder)\n input$Gene_regions <- c(placeholder)\n input$DSM <- placeholder\n data_print_path <- path_not_found",
+    "varname.adjust": 2,
+    "varname.size": 3
+  },
+  "output": {
+    "Beta_plot": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "Beta_plot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "DSM": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "geneset": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "PvalPlot": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "PvalPlot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "R2_plot": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "R2_plot_step": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    },
+    "Significance_threshold": {
+      "message": "",
+      "call": "NULL",
+      "type": [
+        "shiny.silent.error",
+        "validation"
+      ]
+    }
+  },
+  "export": {
+
+  }
+}
