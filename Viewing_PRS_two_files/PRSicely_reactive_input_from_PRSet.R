@@ -34,12 +34,11 @@ Prsice_conversion <- function(Prcise_output){
     Full_data[Genome_wide_PRS, Gene_regions := "Genome-wide"]
     Full_data[Gene_set_PRS, Gene_regions := "Gene-set"]
  
-    # Here is where I got to, need to figure out how all this will work with new input file   
     
     ## Create arguments to shiny app
     Gene.sets.input <- unique(Full_data$Genesets)
     significance_threshold.input <- unique(Full_data$Significance_thresholds)
-    DSM.input <- unique(Full_data$samples.i.)
+    DSM.input <- "Everything"
     
     ## Identify which rows in the data table contain whole genome information
     whole_genome_genic_positions_Full_data <- NULL
@@ -47,13 +46,12 @@ Prsice_conversion <- function(Prcise_output){
     
     whole_genome_plot_all_positions <- Genome_wide_PRS
     
-    ## Change the Gene regions identifier to enable comparison of gene-set PRS to whole genome PRS
-    Full_data[whole_genome_genic_positions_Full_data, Gene_regions := gsub(pattern = "^(.*).genic.genome_SCORE_.*", replacement = "\\1", x = Full_data$Gene_regions[whole_genome_genic_positions_Full_data],perl = T)]
-    Full_data[whole_genome_all_genome_positions_Full_data, Gene_regions := gsub(pattern = ".*", replacement = "Full", x = Full_data$Gene_regions[whole_genome_all_genome_positions_Full_data],perl = T)]
     
     Full_data[whole_genome_plot_all_positions, Type := "Whole_genome"]
     Full_data[!whole_genome_plot_all_positions, Type:= "Pathway"]
     
+# Got here, need to figure out how to manipulate the P-value columns
+
     if(any(Full_data$p == 0) == T){
       Full_data[,P_altered := p]
       Full_data[P_altered == 0, P_altered := 1e-300]
