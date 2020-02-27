@@ -50,7 +50,7 @@ Prsice_conversion <- function(Prcise_output){
     Full_data[whole_genome_plot_all_positions, Type := "Whole_genome"]
     Full_data[!whole_genome_plot_all_positions, Type:= "Pathway"]
     
-# Got here, need to figure out how to manipulate the P-value columns
+## Got here, need to figure out how to manipulate the P-value columns
 
     if(any(Full_data$p == 0) == T){
       Full_data[,P_altered := p]
