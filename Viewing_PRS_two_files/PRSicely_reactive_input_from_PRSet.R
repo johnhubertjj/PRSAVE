@@ -1,6 +1,8 @@
 # Prsice conversion
 
-library(tidyverse)
+# insert alterations functions that cleans up string names
+source("alterations_of_gene_sets_script.R")
+
 # Code that will convert the prsice input to a standardised output
 # Input lists
 
@@ -50,42 +52,32 @@ Prsice_conversion <- function(Prcise_output){
     Full_data[whole_genome_plot_all_positions, Type := "Whole_genome"]
     Full_data[!whole_genome_plot_all_positions, Type:= "Pathway"]
     
-## Got here, need to figure out how to manipulate the P-value columns
-
-    if(any(Full_data$p == 0) == T){
-      Full_data[,P_altered := p]
+    if(any(Full_data$P == 0) == T){
+      Full_data[,P_altered := P]
       Full_data[P_altered == 0, P_altered := 1e-300]
       Full_data$logp <- -log10(Full_data$P_altered)
     }else{
-      Full_data$logp <- -log10(Full_data$p)
+      Full_data$logp <- -log10(Full_data$P)
     }
+    
+    Full_data[,estimate := scale(Coefficient)]
+    Full_data[,SE := scale(Standard.Error)]
     
     Full_data$SE_higher <- Full_data$estimate + Full_data$SE
     Full_data$SE_lower <- Full_data$estimate - Full_data$SE
-    Full_data$r2_dir <- 100 * (as.numeric(Full_data$r.squared) *
+    Full_data$r2_dir <- 100 * (as.numeric(Full_data$R2) *
                                  (sign(as.numeric(Full_data$estimate))))
-    Full_data$p_value_text <- paste("p =", scientific(Full_data$p, digits = 2), sep = " ")
+    Full_data$p_value_text <- paste("p =", scientific(Full_data$P, digits = 2), sep = " ")
     
     if(any(Full_data$p_value_text == "p = 0.0e+00") == TRUE){
-      
       Full_data[p_value_text == "p = 0.0e+00", p_value_text := "p < 1e-300"]
     }
     
-    ## Add alterations column to create "human readable" formats of the data
-    alterations <- Full_data$score
-    alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = ".*SCORE_(.*)_.*",replacement = "\\1")
-    alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "long_term_potentiation",replacement = "LTP")
-    alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "action_potential",replacement = "AP")
-    alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "depolarization",replacement = "DP")
+    # Here is where I got to
+
+    Full_data <- Duplication_of_gene_sets_check(Data_table = Full_data, Genome_wide_positions = whole_genome_plot_all_positions, Significance_thresholds_name = "Significance_thresholds", gene_set_values = Full_data$Genesets)
     
-    # IQ alterations
-    alterations[-whole_genome_plot_all_positions] <- tolower(alterations[-whole_genome_plot_all_positions])
-    alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "nervous_system",replacement = "NS")
-    alterations[-whole_genome_plot_all_positions] <- str_replace(string = alterations[-whole_genome_plot_all_positions], pattern = "regulation",replacement = "reg")
-    
-    alterations[whole_genome_genic_positions_Full_data] <- "Whole Genome PRS GENIC"
-    alterations[whole_genome_all_genome_positions_Full_data] <- "Whole Genome PRS ALL"
-    
+    alterations <- Pathway_cleanup(Full_data, whole_genome_plot_all_positions)   
     Full_data[, alterations := alterations]
     
     

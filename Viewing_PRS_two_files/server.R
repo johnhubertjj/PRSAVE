@@ -10,7 +10,8 @@
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-  options(shiny.maxRequestSize=30*1024^2)
+
+options(shiny.maxRequestSize=30*1024^2)
 source("reactivity_scripts.R", local = TRUE)
 
   
