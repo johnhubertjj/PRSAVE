@@ -107,7 +107,7 @@ source("PRSicely_reactive_input_from_PRSet.R", local = TRUE)
       p <- ggplot(part_2(), aes(x=score, y=estimate, fill = Type, group=Significance_thresholds))
       
       p <- p +
-        geom_errorbar(aes(ymin = upper, ymax = lower), position = "dodge", width = 0.25) +
+        geom_errorbar(aes(ymin = SE_higher, ymax = SE_lower), position = "dodge", width = 0.25) +
         geom_point(aes(colour = Type))
       
       p <- p + scale_x_discrete(labels= levels(part_2()$alterations))

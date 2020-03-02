@@ -91,6 +91,7 @@
     
     Full_data[Positions_of_PRS_in_table$Gene_set_PRS, score := paste0(Gene_regions,"_SCORE_",Genesets,"_",Significance_thresholds)]
     Full_data[Positions_of_PRS_in_table$Genome_wide_PRS, score := paste0("All.genome_SCORE_whole_genome_",Significance_thresholds)]
+    Full_data[,.id := "PRS Results"]
     
     Full_data <- list(Full_data = Full_data ,Gene.sets.input = Gene.sets.input, significance_threshold.input = significance_threshold.input, DSM.input = DSM.input)
     Full_data
