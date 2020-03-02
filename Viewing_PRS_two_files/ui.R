@@ -26,7 +26,7 @@ shinyUI( navbarPage("Polygenic Risk Score Analysis Viewer Environment",
               uiOutput("Significance_threshold"
                        ),
               checkboxGroupInput("Gene_regions", label = "Length of Gene regions:",
-                                 choices = c("extended","normal","Full")),
+                                 choices = c("Genome-wide","Gene-set")),
               uiOutput("DSM"),
               uiOutput("geneset"),
               sliderInput('plotHeight', 'Bar which does nothing, use if bored', 
