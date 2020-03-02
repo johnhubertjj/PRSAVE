@@ -84,13 +84,23 @@ Prsice_conversion <- function(Prcise_output){
     # Change names in alterations 
     alterations <- Pathway_cleanup(Full_data$Genesets, Positions_of_PRS_in_table$Genome_wide_PRS)   
     Full_data[, alterations := alterations]
+    
+    #Add DSM argument script
     Full_data[, samples.i. := "Everything"]
     
+    Full_data[Positions_of_PRS_in_table$Gene_set_PRS, score := paste0(Gene_regions,"_SCORE_",Genesets,"_",Significance_thresholds)]
+    Full_data[Positions_of_PRS_in_table$Genome_wide_PRS, score := paste0("All.genome_SCORE_whole_genome_",Significance_thresholds)]
+    
     Full_data <- list(Full_data = Full_data ,Gene.sets.input = Gene.sets.input, significance_threshold.input = significance_threshold.input, DSM.input = DSM.input)
-    Full_data# Potential solution to multiple
+    Full_data
+
   })
   
   part_2 <- reactive({ 
+    
+    #Gene_regions <- c("Genome-wide", "Gene-set")
+    #Significance_thresholds <- c(0.5,1)
+    #Genesets <- "GO_CARDIAC_DEVELOPMENT.bed"
     
     Current_table <- My_data()$Full_data %>%
       
