@@ -29,12 +29,15 @@ Prsice_conversion <- function(Prcise_output){
     setnames(Full_data, old = c("Set","Threshold"), new = c("Genesets", "Significance_thresholds"))
     Full_data[, Gene_regions := Genesets]
     
-    Genome_wide_PRS <- which(Full_data$Gene_regions == "Base")
-    Gene_set_PRS <- which(Full_data$Gene_regions != "Base")
+    #First runthrough of PRS positions
+    Positions_of_PRS_in_table <- Calculate_positions_of_genome_wide_PRS(Full_data,"Genesets")
+    
+    #Genome_wide_PRS <- which(Full_data$Gene_regions == "Base")
+    #Gene_set_PRS <- which(Full_data$Gene_regions != "Base")
     
     Full_data[,Gene_regions := "NA"]
-    Full_data[Genome_wide_PRS, Gene_regions := "Genome-wide"]
-    Full_data[Gene_set_PRS, Gene_regions := "Gene-set"]
+    Full_data[Positions_of_PRS_in_table$Genome_wide_PRS, Gene_regions := "Genome-wide"]
+    Full_data[Positions_of_PRS_in_table$Gene_set_PRS, Gene_regions := "Gene-set"]
  
     
     ## Create arguments to shiny app
@@ -42,16 +45,12 @@ Prsice_conversion <- function(Prcise_output){
     significance_threshold.input <- unique(Full_data$Significance_thresholds)
     DSM.input <- "Everything"
     
-    ## Identify which rows in the data table contain whole genome information
-    whole_genome_genic_positions_Full_data <- NULL
-    whole_genome_all_genome_positions_Full_data <- Genome_wide_PRS
     
-    whole_genome_plot_all_positions <- Genome_wide_PRS
+    Full_data[Positions_of_PRS_in_table$Genome_wide_PRS, Type := "Whole_genome"]
+    Full_data[!Positions_of_PRS_in_table$Genome_wide_PRS, Type:= "Pathway"]
     
     
-    Full_data[whole_genome_plot_all_positions, Type := "Whole_genome"]
-    Full_data[!whole_genome_plot_all_positions, Type:= "Pathway"]
-    
+    # Set all P values to work within the app and add annotations
     if(any(Full_data$P == 0) == T){
       Full_data[,P_altered := P]
       Full_data[P_altered == 0, P_altered := 1e-300]
@@ -73,13 +72,19 @@ Prsice_conversion <- function(Prcise_output){
       Full_data[p_value_text == "p = 0.0e+00", p_value_text := "p < 1e-300"]
     }
     
-    # Here is where I got to
-
-    Full_data <- Duplication_of_gene_sets_check(Data_table = Full_data, Genome_wide_positions = whole_genome_plot_all_positions, Significance_thresholds_name = "Significance_thresholds", gene_set_values = Full_data$Genesets)
+  
+    # Run a duplication check on the gene-set PRS names
+    Full_data <- Duplication_of_gene_sets_check(Data_table = Full_data, Genome_wide_positions = Positions_of_PRS_in_table$Genome_wide_PRS, Significance_thresholds_name = "Significance_thresholds", gene_set_values = Full_data$Genesets)
     
-    alterations <- Pathway_cleanup(Full_data, whole_genome_plot_all_positions)   
+    # Re-calculate the positions of whole_genome_PRS
+    #Second runthrough of PRS positions
+    Positions_of_PRS_in_table <- Calculate_positions_of_genome_wide_PRS(Full_data,"Genesets")
+    
+    
+    # Change names in alterations 
+    alterations <- Pathway_cleanup(Full_data$Genesets, Positions_of_PRS_in_table$Genome_wide_PRS)   
     Full_data[, alterations := alterations]
-    
+    Full_data[, samples.i. := "Everything"]
     
     Full_data <- list(Full_data = Full_data ,Gene.sets.input = Gene.sets.input, significance_threshold.input = significance_threshold.input, DSM.input = DSM.input)
     Full_data# Potential solution to multiple
