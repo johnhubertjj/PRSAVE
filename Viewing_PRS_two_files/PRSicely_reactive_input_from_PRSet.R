@@ -1,27 +1,28 @@
 # Prsice conversion
 
-# insert alterations functions that cleans up string names
-source("alterations_of_gene_sets_script.R")
+
 
 # Code that will convert the prsice input to a standardised output
 # Input lists
 
-Full_data <- fread("~/PRSice_shiny_app/test_run_thesis_phenotype.prsice")
-Prsicely_input <- fread("~/Documents/Cognition_paper_automated/Data/Paper_results/Collated_PRS_analysis_forIQ3_COGS.txtCOGS_SCZ_pathway_supersets_analysis_PRS_analysis_run_2_update_both_IQ_and_SCZ_conditional_26-10-2018_at_14.02.txt")
+#Full_data <- fread("~/PRSice_shiny_app/test_run_thesis_phenotype.prsice")
+#Prsicely_input <- fread("~/Documents/Cognition_paper_automated/Data/Paper_results/Collated_PRS_analysis_forIQ3_COGS.txtCOGS_SCZ_pathway_supersets_analysis_PRS_analysis_run_2_update_both_IQ_and_SCZ_conditional_26-10-2018_at_14.02.txt")
 
-  input <- list() 
+#  input <- list() 
   
-  input$Significance_threshold <- c(0.2,0.5,1)
-  input$geneset <- c("placeholder")
-  input$Gene_regions <- c("placeholder")
-  input$DSM <- "placeholder"
-  input$file1$datapath <- Prsicely_input 
+#  input$Significance_threshold <- c(0.2,0.5,1)
+#  input$geneset <- c("placeholder")
+#  input$Gene_regions <- c("placeholder")
+#  input$DSM <- "placeholder"
+#  input$file1$datapath <- Prsicely_input 
 
 
-Prsice_conversion <- function(Prcise_output){
   # Reactive script
   
   My_data <- reactive({ req(input$file1)
+    
+    # insert alterations functions that cleans up string names
+    source("alterations_of_gene_sets_script.R")
     
     ## Read in data
     Full_data <- fread(input$file1$datapath)
@@ -265,4 +266,3 @@ Prsice_conversion <- function(Prcise_output){
                             PCA_analysis = PCA_analysis
     )
   })
-}

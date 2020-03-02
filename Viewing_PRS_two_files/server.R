@@ -12,8 +12,8 @@
 shinyServer(function(input, output, session) {
 
 options(shiny.maxRequestSize=30*1024^2)
-source("reactivity_scripts.R", local = TRUE)
-
+#source("reactivity_scripts.R", local = TRUE)
+source("PRSicely_reactive_input_from_PRSet.R", local = TRUE)
   
     output$Significance_threshold <- renderUI({ 
       significance_threshold.input <- as.numeric(My_data()$significance_threshold.input)
