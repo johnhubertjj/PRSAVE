@@ -151,7 +151,7 @@ source("PRSicely_reactive_input_from_PRSet.R", local = TRUE)
       p <- ggplot(part_2(), aes(x=score, y=r2_dir, fill = Type, group=Significance_thresholds))
       p <- p +
         geom_bar(stat = "identity", aes(colour = Type), position = "dodge") +
-        geom_text(data=subset(part_2(), p < 0.05),
+        geom_text(data=subset(part_2(), P < 0.05),
                   aes(x=score,y=r2_dir,label=p_value_text, hjust=ifelse(sign(r2_dir)>0, 0, 0)), angle = 90, position = position_dodge(width = 1), size = 2.9)
       
       #Problem with labels with a workaround
@@ -438,7 +438,7 @@ source("PRSicely_reactive_input_from_PRSet.R", local = TRUE)
       }    
       
       # Select columns you wish to output
-      cols <- c("estimate", "SE","r.squared","p")
+      cols <- c("estimate", "SE","R2","P")
       
       ## Limit data table to input arguments and pipe to limiting columns and ordering based on significance
       sample_analysis <- My_data()$Full_data %>%
@@ -447,8 +447,8 @@ source("PRSicely_reactive_input_from_PRSet.R", local = TRUE)
                Significance_thresholds %in% input$Significance_threshold,
                Genesets %in% input$geneset
         )  %>%
-        select(c(score:SE,p,r.squared)) %>%
-        arrange(p)
+        select(c(Genesets,Gene_regions,Significance_thresholds,estimate,SE,P,R2,Num_SNP)) %>%
+        arrange(P)
       
       ## Format DF to DT and apply fixes to the number of decimal points, format "g" = change to nn.dde-dd only if required
       Sample_analysis_2 <- as.data.table(sample_analysis)
